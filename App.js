@@ -1,10 +1,15 @@
-import {View, Text} from 'react-native';
 import React from 'react';
+import Root from './src/routers';
+import {NavigationContainer} from '@react-navigation/native';
 
-export default function App() {
+const cabe = 9;
+cabe;
+const App = () => {
   return (
-    <View>
-      <Text>Poke app</Text>
-    </View>
+    <NavigationContainer>
+      <Root />
+    </NavigationContainer>
   );
-}
+};
+
+export default App;
