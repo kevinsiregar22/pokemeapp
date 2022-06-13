@@ -1,12 +1,4 @@
-import {View, Text} from 'react-native';
-import React from 'react';
+import PokemoeList from './PokemoeList';
+import PokemoeDetail from './PokemoeDetail';
 
-const index = () => {
-  return (
-    <View>
-      <Text>index</Text>
-    </View>
-  );
-};
-
-export default index;
+export {PokemoeList, PokemoeDetail};

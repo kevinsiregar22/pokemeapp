@@ -1,7 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import PokemoeList from '../pages/pokemoe/pokemoeList';
-import {Login, Register} from '../pages/auth';
+import {Login, Register, PokemoeList, PokemoeDetail} from '../pages';
 
 const Stack = createStackNavigator();
 
@@ -13,6 +12,7 @@ const Root = () => {
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="PokemoeList" component={PokemoeList} />
+      <Stack.Screen name="PokemoeDetail" component={PokemoeDetail} />
     </Stack.Navigator>
   );
 };

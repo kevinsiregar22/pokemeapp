@@ -42,8 +42,9 @@ export const colors = {
       text: mainColors.grey4,
     },
   },
-  border: mainColors.grey2,
-  cardLight: mainColors.green2,
+  border: mainColors.green1,
+  cardLight: mainColors.grey4,
+  cardGray: mainColors.grey2,
   loadingBackground: mainColors.black2,
   error: mainColors.red1,
 };

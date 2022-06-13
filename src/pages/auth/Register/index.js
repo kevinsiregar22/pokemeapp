@@ -1,38 +1,18 @@
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import {View, Text, ScrollView, StyleSheet, Alert} from 'react-native';
 import React from 'react';
 import {Input, Gap, Link, Button} from '../../../components/atoms';
 import {colors, fonts} from '../../../utils';
 import {Formik} from 'formik';
-import * as Yup from 'yup';
-import {useNavigation} from '@react-navigation/native';
+import {validationSchema} from '../../../components/molecules/validationSchema';
 
-const Register = () => {
-  const navigation = useNavigation();
-
-  const validationSchema = Yup.object().shape({
-    name: Yup.string()
-      .label('name')
-      .min(5, 'Must Contain 5 Characters')
-      .max(20, 'Max 20 Characters')
-      .required('Please enter a registered name'),
-    email: Yup.string()
-      .label('Email')
-      .email('Enter a valid email')
-      .required('Please enter a registered email'),
-    password: Yup.string()
-      .label('Password')
-      .required()
-      .matches(
-        ' ((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))',
-        'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character',
-      ),
-  });
-
+const Register = props => {
   const handleSubmitButton = values => {
-    if (values.email.length > 8 && values.password.length > 8) {
-      navigation.navigate('Login');
+    if (values.name && values.email && values.password) {
+      Alert.alert('Register Success');
+      props.navigation.navigate('PokemoeList');
     }
   };
+
   return (
     <Formik
       validationSchema={validationSchema}
@@ -56,6 +36,7 @@ const Register = () => {
             {touched.name && errors.name && (
               <Text style={styles.textError}>{errors.name}</Text>
             )}
+            <Gap height={15} />
             <Input
               label="Email"
               value={values.email}
@@ -89,7 +70,7 @@ const Register = () => {
               title="hava a account? Login Now"
               size={16}
               align="center"
-              onPress={() => navigation.navigate('Login')}
+              onPress={() => props.navigation.navigate('Login')}
             />
           </ScrollView>
         </View>

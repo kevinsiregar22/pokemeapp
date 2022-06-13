@@ -3,64 +3,29 @@ import React from 'react';
 import {Input, Gap, Link, Button} from '../../../components/atoms';
 import {colors, fonts} from '../../../utils';
 import {Formik} from 'formik';
-import * as Yup from 'yup';
-import {useNavigation} from '@react-navigation/native';
-// import {FireDb} from '../../../helpers';
-import authTypes from '@react-native-firebase/auth';
-const auth = authTypes();
+import {validationSchema} from '../../../components/molecules/validationSchema';
 
-const Login = () => {
-  const navigation = useNavigation();
-
-  const postLogin = values => {
-    auth()
-      .signInWithEmailAndPassword(values.email, values.password)
-      .then(res => {
-        console.log('success: ', res);
-        Alert.alert('sukses');
-        // FireDb.ref(`users/${res.user.uid}/`)
-        //   .once('value')
-        //   .then(resDB => {
-        //     console.log('data user: ', resDB.val());
-        //   });
-      })
-      .catch(err => {
-        console.log('error: ', err);
-        Alert.alert(err);
-      });
+const Login = props => {
+  const handleSubmitButton = values => {
+    if (values.email && values.password) {
+      Alert.alert('Register Success');
+      props.navigation.navigate('PokemoeList');
+    }
   };
-
-  const validationSchema = Yup.object().shape({
-    name: Yup.string()
-      .label('name')
-      .min(5, 'Must Contain 5 Characters')
-      .max(20, 'Max 20 Characters')
-      .required('Please enter a registered name'),
-    email: Yup.string()
-      .label('Email')
-      .email('Enter a valid email')
-      .required('Please enter a registered email'),
-    password: Yup.string()
-      .label('Password')
-      .required()
-      .matches(
-        ' ((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))',
-        'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character',
-      ),
-  });
 
   return (
     <Formik
       validationSchema={validationSchema}
-      initialValues={{name: '', email: '', password: ''}}
-      onSubmit={postLogin}>
+      initialValues={{email: '', password: ''}}
+      onSubmit={handleSubmitButton}>
       {({values, handleChange, errors, touched, handleBlur, handleSubmit}) => (
         <View style={styles.container}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Gap height={40} />
             <Text style={styles.title}>Pokemoe App</Text>
-            <Text style={styles.Login}>Login</Text>
+            <Text style={styles.login}>Login</Text>
             <Gap height={15} />
+
             <Input
               label="Email"
               value={values.email}
@@ -88,13 +53,13 @@ const Login = () => {
             )}
 
             <Gap height={30} />
-            <Button text="Register" onPress={handleSubmit} />
+            <Button text="Login" onPress={handleSubmit} />
             <Gap height={30} />
             <Link
               title="hava a account? Login Now"
               size={16}
               align="center"
-              onPress={() => navigation.navigate('Register')}
+              onPress={() => props.navigation.navigate('Register')}
             />
           </ScrollView>
         </View>
@@ -114,7 +79,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     letterSpacing: 7,
   },
-  Login: {
+  login: {
     fontSize: 25,
     fontFamily: fonts.Poppins[600],
     color: colors.text.primary,
