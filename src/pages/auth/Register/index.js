@@ -15,7 +15,6 @@ const Register = props => {
         values.password,
       );
       if (res) {
-        Alert.alert('Register Success');
         props.navigation.navigate('PokemoeList');
       }
     } catch (error) {

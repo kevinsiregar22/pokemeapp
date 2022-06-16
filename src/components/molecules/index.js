@@ -1,3 +1,3 @@
 import Loading from './Loading';
-
-export {Loading};
+import Transition from './Transition';
+export {Loading, Transition};

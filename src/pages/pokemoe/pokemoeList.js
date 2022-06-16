@@ -12,7 +12,7 @@ import {
 
 import axios from 'axios';
 import {BASE_API, IMAGE_URL} from '../../helpers';
-import {Gap, Input, Loading} from '../../components';
+import {Input, Loading} from '../../components';
 import {colors, fonts} from '../../utils';
 
 const PokemoeList = props => {
@@ -44,15 +44,13 @@ const PokemoeList = props => {
 
   return (
     <View style={styles.container}>
-      <View style={{paddingHorizontal: 20}}>
+      <View style={{paddingHorizontal: 20, top: -10}}>
         <Input
           placeholder={'Search your pokemoe'}
           onChangeText={value => setSearchfeild(value)}
           value={searchfeild}
         />
       </View>
-
-      <Gap height={-120} />
       <ScrollView>
         <View style={styles.containerList}>
           {pokemoe
@@ -102,7 +100,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    marginTop: 5,
+    top: -2,
   },
 
   card: {
