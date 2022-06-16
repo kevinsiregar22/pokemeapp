@@ -27,9 +27,10 @@ const PokemoeList = props => {
   const getPokemoeList = async () => {
     try {
       setloadingg(true);
-      const res = await axios.get(`${BASE_API}?limit=200`);
+      const res = await axios.get(`${BASE_API}?limit=20`);
       setPokemoe(res.data.results);
       console.log(res.data.results, '<====results====>');
+      setloadingg(false);
     } catch (error) {
       Alert.alert('errorr...');
     } finally {
@@ -50,6 +51,7 @@ const PokemoeList = props => {
           value={searchfeild}
         />
       </View>
+
       <Gap height={-120} />
       <ScrollView>
         <View style={styles.containerList}>
@@ -88,9 +90,9 @@ export default PokemoeList;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.disable,
+    backgroundColor: colors.white,
     fontFamily: fonts.Poppins['600'],
-    fontSize: 20
+    fontSize: 20,
   },
   containerList: {
     backgroundColor: colors.secondary,
@@ -121,6 +123,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: fonts.Poppins['400'],
-    fontSize: 20
+    fontSize: 20,
   },
 });

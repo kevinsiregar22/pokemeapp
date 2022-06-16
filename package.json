@@ -8,8 +8,11 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
+    "build:apk": "cd android && gradlew assembleRelease && cd ..",
     "linter": "eslint 'src/**/*.js'",
-    "prettier": "prettier --write 'src/**/*.js'"
+    "prettier": "prettier --write 'src/**/*.js'",
+    "prepare": "husky install",
+    "production": "appcenter codepush release-react -a siregar/Pokemoe -d Production"
   },
   "dependencies": {
     "@react-native-firebase/app": "^14.11.0",
@@ -25,11 +28,14 @@
     "husky": "^8.0.1",
     "react": "17.0.2",
     "react-native": "0.68.2",
+    "react-native-code-push": "^7.0.4",
+    "react-native-config": "^1.4.6",
     "react-native-gesture-handler": "^2.4.2",
     "react-native-safe-area-context": "^4.3.1",
     "react-native-screens": "^3.13.1",
     "react-native-size-matters": "^0.4.0",
     "react-native-svg": "^12.3.0",
+    "save": "^2.5.0",
     "yarn": "^1.22.19",
     "yup": "^0.32.11"
   },

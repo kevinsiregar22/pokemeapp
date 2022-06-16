@@ -4,12 +4,27 @@ import {Input, Gap, Link, Button} from '../../../components/atoms';
 import {colors, fonts} from '../../../utils';
 import {Formik} from 'formik';
 import {validationSchema} from '../../../components/molecules/validationSchema';
+import authProvider from '@react-native-firebase/auth';
+const auth = authProvider();
 
 const Login = props => {
-  const handleSubmitButton = values => {
-    if (values.email && values.password) {
-      Alert.alert('Register Success');
-      props.navigation.navigate('PokemoeList');
+  const submitLogin = async values => {
+    try {
+      const res = await auth.createUserWithEmailAndPassword(
+        values.email,
+        values.password,
+      );
+      if (res) {
+        props.navigation.navigate('PokemoeList');
+      }
+    } catch (error) {
+      if (error.code === 'auth/wrong-password') {
+        Alert.alert('The password is invalid');
+      }
+
+      if (error.code === 'auth/invalid-email') {
+        Alert.alert('The email address is badly formatted');
+      }
     }
   };
 
@@ -17,19 +32,19 @@ const Login = props => {
     <Formik
       validationSchema={validationSchema}
       initialValues={{email: '', password: ''}}
-      onSubmit={handleSubmitButton}>
+      onSubmit={submitLogin}>
       {({values, handleChange, errors, touched, handleBlur, handleSubmit}) => (
         <View style={styles.container}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Gap height={40} />
             <Text style={styles.title}>Pokemoe App</Text>
-            <Text style={styles.login}>Login</Text>
-            <Gap height={15} />
+            <Text style={styles.register}>Login</Text>
 
+            <Gap height={15} />
             <Input
               label="Email"
               value={values.email}
-              placeholder={'Email'}
+              placeholder={'Example@gmail.com'}
               onBlur={handleBlur('email')}
               onChangeText={handleChange('email')}
             />
@@ -56,7 +71,7 @@ const Login = props => {
             <Button text="Login" onPress={handleSubmit} />
             <Gap height={30} />
             <Link
-              title="hava a account? Login Now"
+              title="Don't hava a account? Register Now"
               size={16}
               align="center"
               onPress={() => props.navigation.navigate('Register')}
@@ -79,7 +94,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     letterSpacing: 7,
   },
-  login: {
+  register: {
     fontSize: 25,
     fontFamily: fonts.Poppins[600],
     color: colors.text.primary,

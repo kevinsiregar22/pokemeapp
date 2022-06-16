@@ -4,12 +4,28 @@ import {Input, Gap, Link, Button} from '../../../components/atoms';
 import {colors, fonts} from '../../../utils';
 import {Formik} from 'formik';
 import {validationSchema} from '../../../components/molecules/validationSchema';
+import authProvider from '@react-native-firebase/auth';
+const auth = authProvider();
 
 const Register = props => {
-  const handleSubmitButton = values => {
-    if (values.name && values.email && values.password) {
-      Alert.alert('Register Success');
-      props.navigation.navigate('PokemoeList');
+  const submitRegister = async values => {
+    try {
+      const res = await auth.createUserWithEmailAndPassword(
+        values.email,
+        values.password,
+      );
+      if (res) {
+        Alert.alert('Register Success');
+        props.navigation.navigate('PokemoeList');
+      }
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        Alert.alert('That email address is already in use!');
+      }
+
+      if (error.code === 'auth/invalid-email') {
+        Alert.alert('That email address is invalid');
+      }
     }
   };
 
@@ -17,7 +33,7 @@ const Register = props => {
     <Formik
       validationSchema={validationSchema}
       initialValues={{name: '', email: '', password: ''}}
-      onSubmit={handleSubmitButton}>
+      onSubmit={submitRegister}>
       {({values, handleChange, errors, touched, handleBlur, handleSubmit}) => (
         <View style={styles.container}>
           <ScrollView showsVerticalScrollIndicator={false}>
@@ -26,9 +42,9 @@ const Register = props => {
             <Text style={styles.register}>Register</Text>
             <Gap height={15} />
             <Input
-              label="name"
+              label="Name"
               value={values.name}
-              placeholder={'name'}
+              placeholder={'Name'}
               onBlur={handleBlur('name')}
               onChangeText={handleChange('name')}
             />
@@ -40,7 +56,7 @@ const Register = props => {
             <Input
               label="Email"
               value={values.email}
-              placeholder={'Email'}
+              placeholder={'Example@gmail.com'}
               onBlur={handleBlur('email')}
               onChangeText={handleChange('email')}
             />
