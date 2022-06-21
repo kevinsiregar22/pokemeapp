@@ -5,8 +5,8 @@ import {colors, fonts} from '../../../utils';
 import {Formik} from 'formik';
 import {validationSchema} from '../../../components/molecules/validationSchema';
 import authProvider from '@react-native-firebase/auth';
+import {configDb} from '../../../helpers';
 const auth = authProvider();
-
 const Register = props => {
   const submitRegister = async values => {
     try {
@@ -14,8 +14,17 @@ const Register = props => {
         values.email,
         values.password,
       );
-      if (res) {
-        props.navigation.navigate('PokemoeList');
+      let data = {
+        displayName: values.name,
+        email: res.user.email,
+        PokemoeBag: [],
+        _id: res.user.uid,
+      };
+
+      if ('email' in res.user && res.user.email) {
+        await configDb.ref(`users/${res.user.uid}`).set(data);
+        Alert.alert('User account created & signed in!');
+        props.navigation.navigate('Pokemoes');
       }
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
@@ -97,7 +106,11 @@ const Register = props => {
 export default Register;
 
 const styles = StyleSheet.create({
-  container: {flex: 1, paddingHorizontal: 20, backgroundColor: colors.white},
+  container: {
+    flex: 1,
+    paddingHorizontal: 20,
+    backgroundColor: colors.background.primary,
+  },
   title: {
     fontSize: 30,
     fontFamily: fonts.Poppins[800],

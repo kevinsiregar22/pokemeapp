@@ -1,5 +1,6 @@
 import {View, Text, Easing, Animated, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
+import { colors } from '../../utils';
 
 const Animation = () => {
   const opacity = useState(new Animated.Value(0))[0];
@@ -52,7 +53,7 @@ const Animation = () => {
         style={{
           height: 50,
           width: 50,
-          backgroundColor: 'red',
+          backgroundColor: colors.primary,
           borderRadius: 100 / 2,
           // opacity: opacity,
           // marginLeft: leftValue,

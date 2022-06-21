@@ -1,2 +1,3 @@
 import Pokeball from './pokeball.png';
-export {Pokeball};
+import LeftArrow from './left-arrow.png';
+export {Pokeball, LeftArrow};

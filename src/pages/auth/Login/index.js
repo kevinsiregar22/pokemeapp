@@ -10,7 +10,7 @@ const auth = authProvider();
 const Login = props => {
   const submitLogin = async values => {
     try {
-      const res = await auth.createUserWithEmailAndPassword(
+      const res = await auth.signInWithEmailAndPassword(
         values.email,
         values.password,
       );

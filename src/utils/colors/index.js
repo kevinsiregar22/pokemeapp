@@ -1,6 +1,9 @@
 const mainColors = {
   green1: '#0BCAD4',
   green2: '#EDFCFD',
+  green3: '#D5E4E8',
+  green4: '#BBD7D6',
+  green5: '#F4FBFB',
   dark1: '#112340',
   dark2: '#495A75',
   dark3: '#8092AF',
@@ -17,10 +20,17 @@ const mainColors = {
 export const colors = {
   primary: mainColors.green1,
   secondary: mainColors.dark1,
-  tertiary: mainColors.blue1,
   white: 'white',
   black: 'black',
   disable: mainColors.grey3,
+  background: {
+    primary: mainColors.green3,
+  },
+  card: {
+    primary: mainColors.green3,
+    secondary: mainColors.green4,
+    tertinany: mainColors.green5,
+  },
   text: {
     primary: mainColors.dark1,
     secondary: mainColors.grey1,
@@ -45,6 +55,6 @@ export const colors = {
   border: mainColors.green1,
   cardLight: mainColors.grey4,
   cardGray: mainColors.grey2,
-  loadingBackground: mainColors.black2,
+  loadingBackground: mainColors.green4,
   error: mainColors.red1,
 };

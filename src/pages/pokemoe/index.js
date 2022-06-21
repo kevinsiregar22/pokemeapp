@@ -1,4 +1,5 @@
-import PokemoeList from './PokemoeList';
+import Pokemoes from './Pokemoes';
 import PokemoeDetail from './PokemoeDetail';
+import PokemoeBag from './PokemoeBag';
 
-export {PokemoeList, PokemoeDetail};
+export {Pokemoes, PokemoeDetail, PokemoeBag};
